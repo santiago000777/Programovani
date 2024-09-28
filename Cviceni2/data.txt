@@ -1,0 +1,6 @@
+Jakub 7 1 5 9 10
+Pepa 1 1 1 1 1
+Honza 2 2 2 2 2
+Simon 7 9 2 -9 1
+Marek 9 6 1 2 1
+Dan 6 3 10 5 20
