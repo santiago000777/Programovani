@@ -7,14 +7,14 @@ typedef struct {
 
 void SetName(Soutezici* pSoutezici) {
 	printf("Nacitej jmeno souteziciho:\n");
-	scanf_s("%s", pSoutezici->name, 10);
+	scanf("%10s", pSoutezici->name);
 }
 
 void SetPoints(Soutezici* pSoutezici) {
 	printf("Nacitej 5 bodu od porotcu:\n");
 	for (int i = 0; i < 5; i++) {
 		printf("Porotce %d.\t", i + 1);
-		scanf_s("%d", &pSoutezici->points[i]);
+		scanf("%d", &pSoutezici->points[i]);
 	}
 }
 

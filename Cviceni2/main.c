@@ -29,9 +29,9 @@ void Vyhodnoceni(FILE* out, Soutezici* pSoutezici, int pocet) {
 
 void ReadFrom(FILE* in, Soutezici* pSoutezici, int pocet) {
 	for (int i = 0; i < pocet; i++) {
-		fscanf_s(in, "%s", pSoutezici[i].name, 10);
+		fscanf(in, "%10s", pSoutezici[i].name);
 		for (int j = 0; j < 5; j++) {
-			fscanf_s(in, "%d", &pSoutezici[i].points[j]);
+			fscanf(in, "%d", &pSoutezici[i].points[j]);
 		}
 	}
 }

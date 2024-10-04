@@ -9,7 +9,7 @@ typedef struct {
 
 int Nacti(FILE* in, Osoba* pOsoba) {
 	int pocet = 0;
-	while (fscanf_s(in, "%s%s%d", pOsoba[pocet].jmeno, 49, pOsoba[pocet].prijmeni, 49, &pOsoba[pocet].vek) == 3) {
+	while (fscanf(in, "%49s%49s%d", pOsoba[pocet].jmeno, pOsoba[pocet].prijmeni, &pOsoba[pocet].vek) == 3) {
 		pocet++;
 	}
 	
@@ -62,7 +62,7 @@ int main() {
 		return 0;
 	}
 	char slovo[50];
-	while (fscanf_s(in, "%s", slovo, 49) == 1) {
+	while (fscanf(in, "%49s", slovo) == 1) {
 		if (slovo[0] == 'N' || slovo[0] == 'n' && slovo[1] == 'e') {
 			fprintf(out, "%s ", &slovo[2]);
 		}
