@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Kdo si poctivì sám naprogramuje úkoly, nemìl by mít problém na programovací písemce. V každé úloze nechte uživatele, a zadává jména souborù/souboru pøes klávesnici:
 
@@ -25,7 +26,7 @@ void Copy2(FILE* in, FILE* out) {
 	int index;
 	char slovo[20];
 	
-	while ((fscanf(in, "%d%19s", &index, slovo)) == 2) {
+	while (fscanf(in, "%d%19s", &index, slovo) == 2) {
 		fputc((int)slovo[index], out);
 	}
 }
@@ -49,10 +50,28 @@ void Copy3(FILE* in, FILE* out) {
 }
 
 void Copy4(FILE* in, FILE* out) {
+	/*
+	4)
+	V textovém souboru je text a program zapíše každé slovo obrácenì do druhého souboru:
+	johA elvaP kaj es ?edev
+	Zapíše jako: Ahoj Pavle jak se vede?
+	*/
 
+	char slovo[20];
+	int len;
+	while (fscanf(in, "%19s", slovo) == 1) {
+		len = strlen(slovo);
+		for (int i = len - 1; i >= 0; i--) {
+			fputc(slovo[i], out);
+		}
+		fputc(' ', out);
+	}
 }
 
+#define EXERCICE	4
+
 int main() {
+#if EXERCICE == 1
 	/*1)
 	V textovém souboru jsou na každém øádku jméno a plat. Vytvoøte program, který pøekopíruje jména do druhého souboru a 
 	místo platu ke každému jménu napíše v procentech hodnotu odpovídající procentuálnímu množství prùmìrné mzdy.
@@ -65,7 +84,8 @@ int main() {
 	
 	TIP: Aby se vypsala procenta, je potøeba napsat %%: printf("Procenta %%");
 	*/
-	/*char fileName[20];
+
+	char fileName[20];
 	printf("Zadej nazev souboru, ktery bude zadanim:\t");
 	scanf("%19s", fileName);
 
@@ -79,8 +99,8 @@ int main() {
 	Copy1(in, out);
 
 	fclose(in);
-	fclose(out);*/
-
+	fclose(out);
+#elif EXERCICE == 2
 	/*
 	2)
 	V textovém souboru je vždy èíslo a slovo. Program pøekopíruje soubor do druhého souboru tak, 
@@ -90,7 +110,7 @@ int main() {
 	Zapíše: Ahoj
 	*/
 
-	/*char fileName[20];
+	char fileName[20];
 	printf("Zadej nazev souboru:\t");
 	scanf("%19s", fileName);
 
@@ -104,8 +124,8 @@ int main() {
 	Copy2(in, out);
 
 	fclose(in);
-	fclose(out);*/
-
+	fclose(out);
+#elif EXERCICE == 3
 	/*
 	3)
 	V textovém souboru je text a program jej pøekopíruje znak po znaku tak, že vynechá èíslice, jinak vše zapisuje beze zmìny:
@@ -114,7 +134,7 @@ int main() {
 	Ahoj Karle jak se ti vede
 	*/
 
-	/*char fileName[20];
+	char fileName[20];
 	printf("Zadej nazev souboru:\t");
 	scanf("%19s", fileName);
 
@@ -128,8 +148,9 @@ int main() {
 	Copy3(in, out);
 
 	fclose(in);
-	fclose(out);*/
+	fclose(out);
 
+#elif EXERCICE == 4
 	/*
 	4)
 	V textovém souboru je text a program zapíše každé slovo obrácenì do druhého souboru:
@@ -153,5 +174,6 @@ int main() {
 	fclose(in);
 	fclose(out);
 
+#endif
 	return 0;
 }

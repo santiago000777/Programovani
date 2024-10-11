@@ -20,7 +20,8 @@
 	* git add <path>							-> pridani daneho souboru, ktery se zmenil, ke commitu
 	* git add .									-> pridani vsech souboru, ktery se zmenil, ke commitu
 	* git add SLOZKA/\*.<koncovka>				-> pridani vsech souboru s .<koncovka> ze slozky SLOZKA
-	*
+	* git add -u 						-> pridani všech zmnen
+
 	* git rm -r --cached <path>					-> odebrani zmeny
 
 	* git commit -m "<msg>"						-> commit se zpravou
