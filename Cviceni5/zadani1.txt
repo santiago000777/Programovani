@@ -1,0 +1,4 @@
+Pavel 8000
+Karel 10000
+Jakub 23
+Leos 250000
