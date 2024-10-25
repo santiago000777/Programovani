@@ -68,7 +68,7 @@ void Copy4(FILE* in, FILE* out) {
 	}
 }
 
-#define EXERCICE	4
+#define EXERCICE	1
 
 int main() {
 #if EXERCICE == 1

@@ -23,8 +23,6 @@ void SelectionSort(int* pArr, int pocet) {
 		pom = pArr[minIndex];
 		pArr[minIndex] = pArr[f];
 		pArr[f] = pom;
-
-		PrintPole(pArr, pocet);
 	}
 }
 
