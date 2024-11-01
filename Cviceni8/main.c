@@ -25,6 +25,14 @@ void vypis(int* pole, int pocet) {
     printf("\n");
 }
 
+void vypis3(int* pole, int pocet) {
+    printf("\n");
+    for (int i = 1; i <= pocet; i++) {
+        printf("%d, ", pole[i]);
+    }
+    printf("\n");
+}
+
 void SelectionSort(int* pArr, int pocet) {
     int minIndex, pom;
     for (int f = 0; f < pocet - 1; f++) {
@@ -55,17 +63,25 @@ void InsertSort(int* pole, int pocet) {
 //9, 100, 4, 6, 92, 0, 1, 21
 void InsertSort_zarazka_zacatek(int* pole, int pocet) {
     pocet++;
+    int* pole2 = malloc((pocet) * 4);
+    for (int i = 1; i < pocet; i++) {
+        pole2[i] = pole[i-1];
+    }
+
     int vkladany, i;
-    for (int d = 2; d <= pocet; d++) {
-        vkladany = pole[d];
-        pole[0] = vkladany;
+    for (int d = 2; d < pocet; d++) {
+        vkladany = pole2[d];
+        pole2[0] = vkladany;
         i = d;
-        while (pole[i - 1] > vkladany) {
-            pole[i] = pole[i - 1];
+        while (pole2[i - 1] > vkladany) {
+            pole2[i] = pole2[i - 1];
             i--;
         }
-        pole[i] = vkladany;
-        vypis(pole, pocet);
+        pole2[i] = vkladany;
+        vypis(pole2, pocet);
+    }
+    for (int i = 0; i < pocet - 1; i++) {
+        pole[i] = pole2[i + 1];
     }
 }
 
@@ -143,8 +159,9 @@ int main() {
                 break;
             default: printf("\nKonec");
         }
-        if (volba >= 1 && volba <= 7)
+        if (volba >= 1 && volba <= 7) {
             vypis(pole, n);
+        }
 
         rewind(in);
         if ((n = nacti(in, pole)) > MAX)
