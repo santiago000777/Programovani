@@ -27,7 +27,6 @@ void SelectionSort(int* pArr, int pocet) {
 }
 
 
-
 int main() {
 	int pole[SIZE] = { 9, 100, 8, 5, 0, 7, 6, 5, 0, 16 };
 
