@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <stdbool.h>
 
 #define MAX 100
 
@@ -114,7 +115,21 @@ void BubbleSort(int* pole, int pocet) {
 }
 
 void RippleSort(int* pole, int pocet) {
-
+    int pom, vymena, zarazka = pocet - 1;
+    bool isVymeneno = true;
+    for (int d = 0; isVymeneno; d++) {
+        isVymeneno = false;
+        for (int i = 0; i < zarazka; i++) {
+            if (pole[i] > pole[i + 1]) {
+                pom = pole[i];
+                pole[i] = pole[i + 1];
+                pole[i + 1] = pom;
+                vymena = i;
+                isVymeneno = true;
+            }
+        }
+        zarazka = vymena;
+    }
 }
 
 void ShakerSort(int* pole, int pocet) {
