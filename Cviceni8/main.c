@@ -133,7 +133,37 @@ void RippleSort(int* pole, int pocet) {
 }
 
 void ShakerSort(int* pole, int pocet) {
+    bool ok = true, ok2 = true;
+    int zEnd = pocet - 1;
+    int zStart = 0;
+    int zarazka, pom;
 
+    for (int j = 0; j < pocet && ok2; j++) {
+        ok = false;
+        for (int i = zStart; i < zEnd; i++) {
+            if (pole[i] > pole[i + 1]) {
+                pom = pole[i];
+                pole[i] = pole[i + 1];
+                pole[i + 1] = pom;
+                ok = true;
+                zarazka = i;
+            }
+        }
+        zEnd = zarazka;
+        ok2 = false;
+
+        for (int i = zEnd - 1; i >= zStart && ok; i--) {
+            if (pole[i] > pole[i + 1]) {
+                pom = pole[i];
+                pole[i] = pole[i + 1];
+                pole[i + 1] = pom;
+
+                ok2 = true;
+                zarazka = i;
+            }
+        }
+        zStart = zarazka;
+    }
 }
 
 
