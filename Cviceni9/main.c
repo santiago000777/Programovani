@@ -11,6 +11,70 @@
 //    * Zjistit, kolik je v souboru rùzných jmen a poèet vypsat na obrazovku (volitelnì mùžete vypsat i samotná jména). Bez struktury se asi neobejdete.
 //    * Zjistit, jaké jméno se objevuje nejèastìji a s kolika výskyty.
 
+typedef struct {
+    char name[20];
+    int count;
+} HashTable;
+
+typedef struct {
+    char* data;
+    unsigned int dataSize;
+    unsigned int capacity;
+} DynamicArray;
+
+void PushBack(DynamicArray* array, HashTable* element) {
+    if (array->capacity < 0) {
+        array->capacity = 2;
+        array->dataSize = 24;
+        array->data = malloc(array->dataSize * array->capacity);
+        array->data = (char*)element;
+    }
+    else {
+        char* old = array->data;
+        //array->dataSize += 24;
+        if (array->dataSize + 24 > 24 * array->capacity) {
+            array->capacity++;
+            array->capacity *= 2;
+            array->data = realloc(array->data, 24 * array->capacity);
+            free(old);
+        }
+        else {
+            old += array->dataSize;
+            for (int i = 0; i < 24; i++) {
+                *old = element
+                
+            }
+
+        }
+        array->dataSize += 24;
+    }
+}
+
+void At(DynamicArray* array, unsigned int index, HashTable* element) {
+    array->data += array->elementSize * index;
+    element = (HashTable*)array->data;
+}
+
+
+void PushBack(DynamicArray* array, HashTable* element) {
+    if (array->capacity < 0) {
+        array->capacity = 0;
+        array->capacity++;
+        array->elementSize = 24;
+        array->data = malloc(array->elementSize);
+    } else {
+        array->capacity++;
+    }
+    array->capacity *= 2;
+
+    free(array->data);
+    array->data = realloc(array->data, array->elementSize * array->capacity);
+}
+
+void At(DynamicArray* array, unsigned int index, HashTable* element) {
+    array->data += array->elementSize * index;
+    element = (HashTable*)array->data;
+}
 
 typedef struct {
     char name[20];
