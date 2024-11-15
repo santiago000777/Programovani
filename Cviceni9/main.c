@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 // V souboru data.txt jsou záznamy osob, vždy je na øádku jméno a èíslo (øeknìme že napøíklad plat).
 // Úkolem je seøadit osoby podle výšky platu od nejmenší po nejvìtší.
@@ -16,65 +17,71 @@ typedef struct {
     int count;
 } HashTable;
 
+//
+//typedef struct {
+//    char* data;
+//    unsigned int dataSize;
+//    unsigned int capacity;
+//} DynamicArray;
+//
+//void PushBack(DynamicArray* array, HashTable* element) {
+//    if (array->capacity < 0) {
+//        array->capacity = 2;
+//        array->dataSize = 24;
+//        array->data = malloc(array->dataSize * array->capacity);
+//        array->data = (char*)element;
+//    }
+//    else {
+//        char* old = array->data;
+//        //array->dataSize += 24;
+//        if (array->dataSize + 24 > 24 * array->capacity) {
+//            array->capacity++;
+//            array->capacity *= 2;
+//            array->data = realloc(array->data, 24 * array->capacity);
+//            free(old);
+//        }
+//        else {
+//            old += array->dataSize;
+//            for (int i = 0; i < 24; i++) {
+//                *old = element
+//                
+//            }
+//
+//        }
+//        array->dataSize += 24;
+//    }
+//}
+
+//void At(DynamicArray* array, unsigned int index, HashTable* element) {
+//    array->data += array->elementSize * index;
+//    element = (HashTable*)array->data;
+//}
+//
+//
+//void PushBack(DynamicArray* array, HashTable* element) {
+//    if (array->capacity < 0) {
+//        array->capacity = 0;
+//        array->capacity++;
+//        array->elementSize = 24;
+//        array->data = malloc(array->elementSize);
+//    } else {
+//        array->capacity++;
+//    }
+//    array->capacity *= 2;
+//
+//    free(array->data);
+//    array->data = realloc(array->data, array->elementSize * array->capacity);
+//}
+//
+//void At(DynamicArray* array, unsigned int index, HashTable* element) {
+//    array->data += array->elementSize * index;
+//    element = (HashTable*)array->data;
+//}
+
 typedef struct {
-    char* data;
-    unsigned int dataSize;
-    unsigned int capacity;
-} DynamicArray;
-
-void PushBack(DynamicArray* array, HashTable* element) {
-    if (array->capacity < 0) {
-        array->capacity = 2;
-        array->dataSize = 24;
-        array->data = malloc(array->dataSize * array->capacity);
-        array->data = (char*)element;
-    }
-    else {
-        char* old = array->data;
-        //array->dataSize += 24;
-        if (array->dataSize + 24 > 24 * array->capacity) {
-            array->capacity++;
-            array->capacity *= 2;
-            array->data = realloc(array->data, 24 * array->capacity);
-            free(old);
-        }
-        else {
-            old += array->dataSize;
-            for (int i = 0; i < 24; i++) {
-                *old = element
-                
-            }
-
-        }
-        array->dataSize += 24;
-    }
-}
-
-void At(DynamicArray* array, unsigned int index, HashTable* element) {
-    array->data += array->elementSize * index;
-    element = (HashTable*)array->data;
-}
-
-
-void PushBack(DynamicArray* array, HashTable* element) {
-    if (array->capacity < 0) {
-        array->capacity = 0;
-        array->capacity++;
-        array->elementSize = 24;
-        array->data = malloc(array->elementSize);
-    } else {
-        array->capacity++;
-    }
-    array->capacity *= 2;
-
-    free(array->data);
-    array->data = realloc(array->data, array->elementSize * array->capacity);
-}
-
-void At(DynamicArray* array, unsigned int index, HashTable* element) {
-    array->data += array->elementSize * index;
-    element = (HashTable*)array->data;
-}
+    char name[20];
+    int count;
+} HashTable;
 
 typedef struct {
     char name[20];
@@ -94,10 +101,23 @@ int CountOfObjects(FILE* in) {
     return pocitadlo;
 }
 
-void Nacteni(FILE* in, Employee* pole, int pocet) {
-    for (int i = 0; i < pocet; i++) {
-        if (fscanf(in, "%19s%d", pole[i].name, &pole[i].salary) != 2) {
+void Nacteni(FILE* in, Employee* pole, int pocet, HashTable* hashTable) {
+    int size = 24;
+    hashTable = malloc(size);
+    for (int j = 0; j < pocet; j++) {
+        if (fscanf(in, "%19s%d", pole[j].name, &pole[j].salary) != 2) {
             printf("Chyba!");
+            continue;
+        }
+        
+        strcpy(hashTable[(size / 24) - 1].name, pole[j].name);
+        for (int i = 0; i < size / 24; i++) {
+            if (strcmp(hashTable[i].name, pole[j].name)) {
+                hashTable[i].count++;
+
+                size += 24;
+                hashTable = realloc(hashTable, size);
+            }
         }
     }
 }
@@ -158,7 +178,9 @@ int main() {
     int count = CountOfObjects(in);
     Employee* zamestanci = malloc(sizeof(Employee) * count);
 
-    Nacteni(in, zamestanci, count);
+    HashTable* hashTable;
+
+    Nacteni(in, zamestanci, count, hashTable);
 
 #if SORT == 0
     RippleSort(zamestanci, count);

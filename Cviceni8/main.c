@@ -69,16 +69,16 @@ void InsertSort_zarazka_zacatek(int* pole, int pocet) {
         pole2[i] = pole[i-1];
     }
 
-    int vkladany, i;
+    int i;
     for (int d = 2; d < pocet; d++) {
-        vkladany = pole2[d];
-        pole2[0] = vkladany;
+        pole2[0] = pole2[d];
         i = d;
-        while (pole2[i - 1] > vkladany) {
+
+        while (pole2[i - 1] > pole2[0]) {
             pole2[i] = pole2[i - 1];
             i--;
         }
-        pole2[i] = vkladany;
+        pole2[i] = pole2[0];
         vypis(pole2, pocet);
     }
     for (int i = 0; i < pocet - 1; i++) {
@@ -103,7 +103,6 @@ void InsertSort_zarazka_konec(int* pole, int pocet) {
 void BubbleSort(int* pole, int pocet) {
     int pom;
     for (int d = 0; d < pocet - 2; d++) {
-        vypis(pole, pocet);
         for (int i = pocet - 1; i >= d + 1; i--) {
             if (pole[i - 1] > pole[i]) {
                 pom = pole[i];
