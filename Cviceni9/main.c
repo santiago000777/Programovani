@@ -108,15 +108,16 @@ void Nacteni(FILE* in, Employee* pole, int pocet) {
 }
 
 void RippleSort(Employee* pole, int pocet) {
-    int pom, vymena, zarazka = pocet - 1;
+    Employee pom;
+    int vymena, zarazka = pocet - 1;
     bool isVymeneno = true;
     for (int d = 0; isVymeneno; d++) {
         isVymeneno = false;
         for (int i = 0; i < zarazka; i++) {
             if (pole[i].salary > pole[i + 1].salary) {
-                pom = pole[i].salary;
+                pom = pole[i];
                 pole[i] = pole[i + 1];
-                pole[i + 1].salary = pom;
+                pole[i + 1] = pom;
                 vymena = i;
                 isVymeneno = true;
             }
