@@ -2,6 +2,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+
 
 // V souboru data.txt jsou záznamy osob, vždy je na øádku jméno a èíslo (øeknìme že napøíklad plat).
 // Úkolem je seøadit osoby podle výšky platu od nejmenší po nejvìtší.
@@ -149,6 +151,7 @@ void Zapsani(FILE* out, Employee* pole, int pocet) {
 #define SORT    0
 
 int main() {
+
     printf("Nazev souboru pro ukladani:\t");
     char fileName[20];
     scanf("%19s", fileName);
@@ -176,5 +179,6 @@ int main() {
 
     fclose(in);
     fclose(out);
+
     return 0;
 }

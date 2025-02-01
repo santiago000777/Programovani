@@ -26,13 +26,13 @@ void vypis(int* pole, int pocet) {
     printf("\n");
 }
 
-void vypis3(int* pole, int pocet) {
-    printf("\n");
-    for (int i = 1; i <= pocet; i++) {
-        printf("%d, ", pole[i]);
-    }
-    printf("\n");
-}
+//void vypis3(int* pole, int pocet) {
+//    printf("\n");
+//    for (int i = 1; i <= pocet; i++) {
+//        printf("%d, ", pole[i]);
+//    }
+//    printf("\n");
+//}
 
 void SelectionSort(int* pArr, int pocet) {
     int minIndex, pom;
@@ -69,16 +69,16 @@ void InsertSort_zarazka_zacatek(int* pole, int pocet) {
         pole2[i] = pole[i-1];
     }
 
-    int vkladany, i;
+    int i;
     for (int d = 2; d < pocet; d++) {
-        vkladany = pole2[d];
-        pole2[0] = vkladany;
+        pole2[0] = pole2[d];
         i = d;
-        while (pole2[i - 1] > vkladany) {
+
+        while (pole2[i - 1] > pole2[0]) {
             pole2[i] = pole2[i - 1];
             i--;
         }
-        pole2[i] = vkladany;
+        pole2[i] = pole2[0];
         vypis(pole2, pocet);
     }
     for (int i = 0; i < pocet - 1; i++) {
@@ -102,8 +102,12 @@ void InsertSort_zarazka_konec(int* pole, int pocet) {
 
 void BubbleSort(int* pole, int pocet) {
     int pom;
+<<<<<<< HEAD
     for (int d = 0; d < pocet - 1; d++) {
         vypis(pole, pocet);
+=======
+    for (int d = 0; d < pocet - 2; d++) {
+>>>>>>> 04c88bcb1c712786017d53937315e71cebe7aae5
         for (int i = pocet - 1; i >= d + 1; i--) {
             if (pole[i - 1] > pole[i]) {
                 pom = pole[i];
@@ -167,6 +171,75 @@ void ShakerSort(int* pole, int pocet) {
     }
 }
 
+void Rozdeleni(int* pole, int od, int po, int pivot, int* levy, int* pravy) {
+    *levy = od;
+    *pravy = po;
+    int pom;
+    do {
+        while (pole[*levy] < pivot && *levy < po) {
+            (*levy)++;
+        }
+        while (pivot < pole[*pravy] && *pravy > od) {
+            (*pravy)--;
+        }
+        if (*levy < *pravy) {
+            pom = pole[*levy];
+            pole[*levy] = pole[*pravy];
+            pole[*pravy] = pom;
+        }
+        if (*levy <= *pravy) {
+            (*levy)++;
+            (*pravy)--;
+        }
+    } while (*levy < *pravy);
+}
+
+void QuickSort(int* pole, int od, int po) {
+    int pivot, levy, pravy;
+    if (od < po) {
+        pivot = pole[(od + po) / 2];
+        Rozdeleni(pole, od, po, pivot, &levy, &pravy);
+        QuickSort(pole, od, pravy);
+        QuickSort(pole, levy, po);
+    }
+}
+
+void Slevani(int* pole, int* pomPole, int od, int po) {
+    int levy, stred, pravy, pom;
+    pom = od;
+    levy = pom;
+    stred = (od + po) / 2;
+    pravy = stred + 1;
+
+    while (levy <= stred && pravy <= po) {
+        if (pole[levy] <= pole[pravy]) {
+            pomPole[pom++] = pole[levy++];
+        }
+        else {
+            pomPole[pom++] = pole[pravy++];
+        }
+    }
+    while (levy <= stred) {
+        pomPole[pom++] = pole[levy++];
+    }
+    while (pravy <= po) {
+        pomPole[pom++] = pole[pravy++];
+    }
+}
+
+void MergeSort(int* pole, int* pomPole, int od, int po) {
+    int stred;
+    if (od < po) {
+        stred = (od + po) / 2;
+        MergeSort(pole, pomPole, od, stred);
+        MergeSort(pole, pomPole, stred + 1, po);
+        Slevani(pole, pomPole, od, po);
+        
+        for (int i = od; i <= po; i++) {
+            pole[i] = pomPole[i];
+        }
+    }
+}
 
 int Menu() {
     int volba;
@@ -178,6 +251,8 @@ int Menu() {
     printf("(5) ... Bubble Sort\n");
     printf("(6) ... Ripple Sort\n");
     printf("(7) ... Shaker Sort\n");
+    printf("(8) ... Quick Sort\n");
+    printf("(9) ... Merge Sort\n");
     printf("jine cislo ... KONEC PROGRAMU\n-----------------\n");
 
 
@@ -188,7 +263,7 @@ int Menu() {
 
 
 int main() {
-    int volba = 1, n = 3, pole[MAX];
+    int volba = 1, n = 3, pole[MAX], pomPole[MAX];
     char nazev[20];
     FILE* in;
     printf("Zadej nazev souboru s cisly: ");
@@ -204,9 +279,9 @@ int main() {
         return -2;
     }
 
-    while (volba >= 1 && volba <= 7) {
+    while (volba >= 1 && volba <= 9) {
         volba = Menu();
-        if (volba >= 1 && volba <= 7)
+        if (volba >= 1 && volba <= 9)
             vypis(pole, n);
         switch (volba) {
             case 1: SelectionSort(pole, n);
@@ -223,9 +298,13 @@ int main() {
                 break;
             case 7: ShakerSort(pole, n);
                 break;
+            case 8: QuickSort(pole, 0, n-1);
+                break;
+            case 9: MergeSort(pole, pomPole, 0, n-1);
+                break;
             default: printf("\nKonec");
         }
-        if (volba >= 1 && volba <= 7) {
+        if (volba >= 1 && volba <= 9) {
             vypis(pole, n);
         }
 
