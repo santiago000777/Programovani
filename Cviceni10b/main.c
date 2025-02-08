@@ -112,6 +112,8 @@ int BinVyhledavani(int* pArr, int levy, int pravy, int klic) {
 	}
 }
 
+// zkouska zadavani jmena
+
 void Menu() {
 	printf("Zadej cislo:\n");
 	printf("Sekvencni vyhledavani\n");
