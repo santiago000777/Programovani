@@ -109,6 +109,7 @@ int BinVyhledavani(int* pArr, int levy, int pravy, int klic) {
 	}
 	else {
 		BinVyhledavani(pArr, levy, stred - 1, klic);
+
 	}
 }
 
