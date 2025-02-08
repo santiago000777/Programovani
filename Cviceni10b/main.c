@@ -112,7 +112,7 @@ int BinVyhledavani(int* pArr, int levy, int pravy, int klic) {
 	}
 }
 
-// zkouska zadavani jmena
+// zkouska zadavani jmena    
 
 void Menu() {
 	printf("Zadej cislo:\n");
