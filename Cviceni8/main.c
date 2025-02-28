@@ -102,18 +102,12 @@ void InsertSort_zarazka_konec(int* pole, int pocet) {
 
 void BubbleSort(int* pole, int pocet) {
     int pom;
-<<<<<<< HEAD
-    for (int d = 0; d < pocet - 1; d++) {
-        vypis(pole, pocet);
-=======
     for (int d = 0; d < pocet - 2; d++) {
->>>>>>> 04c88bcb1c712786017d53937315e71cebe7aae5
         for (int i = pocet - 1; i >= d + 1; i--) {
             if (pole[i - 1] > pole[i]) {
                 pom = pole[i];
                 pole[i] = pole[i - 1];
                 pole[i - 1] = pom;
-                vypis(pole, pocet);
             }
         }
     }
