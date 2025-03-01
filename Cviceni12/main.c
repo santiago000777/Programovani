@@ -14,7 +14,7 @@ typedef struct {
     bool smazano; // true smazano, false neni smazano
 } Osoba;
 
-int Nacti(FILE* file, Osoba pOsoba[]) {
+int Nacti(FILE* file, Osoba* pOsoba) {
     
     int i = 0;
 
@@ -27,7 +27,7 @@ int Nacti(FILE* file, Osoba pOsoba[]) {
     return i;
 }
 
-int Zmeny(FILE* file, Osoba p[], int n) {
+int Zmeny(FILE* file, Osoba* pOsoba, int n) {
     Osoba pom;
     int identificator = 0;
     
@@ -35,16 +35,15 @@ int Zmeny(FILE* file, Osoba p[], int n) {
         switch (identificator) {
             case 0: {
                 pom.smazano = false;
-                p[pom.id - 1] = pom;
+                pOsoba[pom.id - 1] = pom;
                 break;
             }
             case -1: {
-                p[pom.id - 1].smazano = true;
+                pOsoba[pom.id - 1].smazano = true;
                 break;
             }
             case 1: {
-                pom.smazano = false;
-                p[n] = pom;
+                pOsoba[n] = pom;
                 n++;
                 break;
             }
@@ -65,24 +64,24 @@ void Zapis(FILE* k, Osoba pOsoba[], int n) {
 }
 
 int main() {
-    FILE* k, * z;
+    FILE* kmenovy, *zmeny;
     Osoba pole[100];
-    int n;
+    int count;
 
-    k = fopen("kmenovy.txt", "r");
-    z = fopen("zmeny.txt", "r");
-    if (k == NULL || z == NULL)
+    kmenovy = fopen("kmenovy.txt", "r");
+    zmeny = fopen("zmeny.txt", "r");
+    if (kmenovy == NULL || zmeny == NULL)
         return -1;
 
-    n = Nacti(k, pole);
-    n = Zmeny(z, pole, n);
-    fclose(k);
-    k = fopen("kmenovyNovy.txt", "w");
+    count = Nacti(kmenovy, pole);
+    count = Zmeny(zmeny, pole, count);
+    fclose(kmenovy);
+    kmenovy = fopen("kmenovyNovy.txt", "w");
 
-    Zapis(k, pole, n);
+    Zapis(kmenovy, pole, count);
 
-    fclose(k);
-    fclose(z);
+    fclose(kmenovy);
+    fclose(zmeny);
 
     return 0;
 }
