@@ -70,11 +70,13 @@ int main() {
 
     kmenovy = fopen("kmenovy.txt", "r");
     zmeny = fopen("zmeny.txt", "r");
-    if (kmenovy == NULL || zmeny == NULL)
+    if (kmenovy == NULL || zmeny == NULL) {
         return -1;
+    }
 
     count = Nacti(kmenovy, pole);
     count = Zmeny(zmeny, pole, count);
+
     fclose(kmenovy);
     kmenovy = fopen("kmenovyNovy.txt", "w");
 
@@ -82,6 +84,5 @@ int main() {
 
     fclose(kmenovy);
     fclose(zmeny);
-
     return 0;
 }

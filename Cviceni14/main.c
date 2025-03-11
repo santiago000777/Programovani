@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /*
 	Ti rychlejší si mùžou zkusit toto cvièení, kde máte za úkol vytvoøit 3 indexové soubory: jeden odpovídá seøazení podle jména, 
@@ -48,7 +49,7 @@ void InsertSort(int* array, int* indexArray, int count) { // predelat na
     }
 }
 
-void AgeIndexInsert(Entity* array, int* indexArray, int count) { // predelat na 
+void AgeIndexInsert(Entity* array, int* indexArray, int count) {
     int vkladany, i, vkladanyIndex;
     for (int d = 1; d < count; d++) {
         vkladanyIndex = indexArray[d];
@@ -60,6 +61,144 @@ void AgeIndexInsert(Entity* array, int* indexArray, int count) { // predelat na
             i--;
         }
         indexArray[i] = vkladanyIndex;
+    }
+}
+
+int SmallerValue(char text1[21], int index1, char text2[21], int index2) {
+    
+    int charIndex = 0;
+    while (text1[charIndex] == text2[charIndex]) {
+        charIndex++;
+    }
+
+    if (text1[charIndex] < text2[charIndex]) {
+        return index1;
+    } else {
+        return index2;
+    }
+
+}
+
+void NameIndexInsert(Entity* array, int* indexArray, int count) {
+    int i, vkladanyIndex;
+    int charIndex = 0;
+    char* vkladanyCharArr;
+    for (int d = 1; d < count; d++) {
+        vkladanyIndex = indexArray[d];
+        vkladanyCharArr = array[vkladanyIndex].name;
+        i = d;
+
+
+        
+
+        while (i > 0 && array[indexArray[i - 1]].name[charIndex] > vkladanyCharArr[charIndex]) {
+            indexArray[i] = indexArray[i - 1];
+            i--;
+        }
+
+        indexArray[i] = vkladanyIndex;
+        charIndex = 0;
+    }
+
+    int pom;
+    charIndex = 0;
+    bool zmeneno;
+
+    for (int d = 0; d < count - 2; d++) {
+        for (int i = count - 1; i >= d + 1; i--) {
+            zmeneno = false;
+            charIndex = 0;
+            if (array[indexArray[i - 1]].name[charIndex] == array[indexArray[i]].name[charIndex]) {
+                while (array[indexArray[i - 1]].name[charIndex] == array[indexArray[i]].name[charIndex]) {
+                    charIndex++;
+                }
+
+                if (array[indexArray[i - 1]].name[charIndex] > array[indexArray[i]].name[charIndex]) {
+
+                    pom = indexArray[i];
+                    indexArray[i] = indexArray[i - 1];
+                    indexArray[i - 1] = pom;
+                    zmeneno = true;
+                }
+            }
+        }
+        if (zmeneno == false) {
+            break;
+        }
+    }
+}
+
+void CountryIndexInsert(Entity* array, int* indexArray, int count) {
+    int i, vkladanyIndex;
+    int charIndex = 0;
+    char* vkladanyCharArr;
+    for (int d = 1; d < count; d++) {
+        vkladanyIndex = indexArray[d];
+        vkladanyCharArr = array[vkladanyIndex].country;
+        i = d;
+
+        while (i > 0 && array[indexArray[i - 1]].country[charIndex] > vkladanyCharArr[charIndex]) {
+            indexArray[i] = indexArray[i - 1];
+            i--;
+        }
+
+        indexArray[i] = vkladanyIndex;
+        charIndex = 0;
+    }
+
+    int pom;
+    charIndex = 0;
+    bool zmeneno;
+
+    for (int d = 0; d < count - 2; d++) {
+        for (int i = count - 1; i >= d + 1; i--) {
+            zmeneno = false;
+            charIndex = 0;
+            if (array[indexArray[i - 1]].country[charIndex] == array[indexArray[i]].country[charIndex]) {
+                while (array[indexArray[i - 1]].country[charIndex] == array[indexArray[i]].country[charIndex]) {
+                    charIndex++;
+                }
+
+                if (array[indexArray[i - 1]].country[charIndex] > array[indexArray[i]].country[charIndex]) {
+
+                    pom = indexArray[i];
+                    indexArray[i] = indexArray[i - 1];
+                    indexArray[i - 1] = pom;
+                    zmeneno = true;
+                }
+            }
+        }
+        if (zmeneno == false) {
+            break;
+        }
+    }
+}
+
+void NameIndexBubble(Entity* array, int* indexArray, int count) {
+    int pom, charIndex = 0;
+    bool zmeneno;
+
+    for (int d = 0; d < count - 2; d++) {
+        for (int i = count - 1; i >= d + 1; i--) {
+            zmeneno = false;
+            if (array[indexArray[i - 1]].name[charIndex] == array[indexArray[i]].name[charIndex]) {
+                while (array[indexArray[i - 1]].name[charIndex] == array[indexArray[i]].name[charIndex]) {
+                    charIndex++;
+                }
+
+                if (array[indexArray[i - 1]].name[charIndex] > array[indexArray[i]].name[charIndex]) {
+
+                    pom = indexArray[i];
+                    indexArray[i] = indexArray[i - 1];
+                    indexArray[i - 1] = pom;
+                    zmeneno = true;
+                    charIndex = 0;
+                }
+            }
+        }
+        if (zmeneno == false) {
+            break;
+        }
     }
 }
 
@@ -79,7 +218,9 @@ int main() {
         indexArray[i] = i;
     }
 
-    AgeIndexInsert(entities, indexArray, count);
+    //AgeIndexInsert(entities, indexArray, count);
+    NameIndexInsert(entities, indexArray, count);
+    //CountryIndexInsert(entities, indexArray, count);
 
     PrintArray(out, entities, indexArray, count);
 
