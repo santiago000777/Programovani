@@ -44,6 +44,8 @@ int Zmeny(FILE* file, Osoba* pOsoba, int n) {
             }
             case 1: {
                 pOsoba[n] = pom;
+                pOsoba[n].id = n + 1;
+                pOsoba[n].smazano = false;
                 n++;
                 break;
             }
